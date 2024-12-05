@@ -1,7 +1,7 @@
 import os
 import sys
 import socket
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_caching import Cache
 from sqlalchemy.exc import OperationalError
