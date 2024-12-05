@@ -1,4 +1,6 @@
 import os
+import sys
+import socket
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_caching import Cache
@@ -47,6 +49,17 @@ def check_redis_connection():
     except Exception as e:
         logging.error(f"Redis connection failed: {e}")  # Log any other exception
         return False
+
+
+@app.route('/get_ip', methods=['GET'])
+def get_ip():
+    try:
+        # Get the container's IP address using socket
+        ip_address = socket.gethostbyname(socket.gethostname())  # Gets the IP of the container
+        return jsonify({'ip': ip_address})  # Return the IP in JSON format
+    except Exception as e:
+        # In case of any error, return an error message in JSON format
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/')

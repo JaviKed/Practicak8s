@@ -44,6 +44,34 @@
             </table>
         </div>
 
+        <h1>Container IP</h1>
+        <div id="ip-address">
+            Fetching IP...
+        </div>
+
+        <script>
+            // Fetch the container's IP address
+            fetch('/get_ip')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();  // Parse JSON response
+                })
+                .then(data => {
+                    // Display the IP address
+                    if (data.ip) {
+                        document.getElementById('ip-address').textContent = `IP: ${data.ip}`;
+                    } else if (data.error) {
+                        document.getElementById('ip-address').textContent = `Error: ${data.error}`;
+                    }
+                })
+                .catch(error => {
+                    // Handle any errors in fetching the IP
+                    console.error('There was a problem with the fetch operation:', error);
+                    document.getElementById('ip-address').textContent = 'Error fetching IP';
+                });
+        </script>
 </body>
 </html>
 
