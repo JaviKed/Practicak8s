@@ -1,0 +1,6 @@
+Flask==2.3.2
+psycopg2-binary==2.9.6
+Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.47
+Flask-Caching==2.0.2  # Paquete para manejar el caching
+redis==4.5.5  # Cliente de Redis

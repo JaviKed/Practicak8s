@@ -1,0 +1,53 @@
+/* Estilo general del cuerpo */
+body {
+    font-family: Arial, sans-serif; /* Tipografía */
+    background-color: #f4f4f4; /* Color de fondo de la página */
+    margin: 0; /* Eliminar márgenes predeterminados */
+    padding: 0; /* Eliminar relleno predeterminado */
+    display: grid; /* Usar flexbox para centrar */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+}
+
+/* Contenedor de la tabla */
+.table-container {
+    background-color: white; /* Color de fondo de la tabla */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para un efecto de profundidad */
+}
+
+/* Estilo de la tabla */
+table {
+    width: 100%; /* Ancho completo de la tabla */
+    border-collapse: collapse; /* Colapsar bordes */
+}
+
+/* Estilo de celdas y encabezados */
+th, td {
+    text-align: center; /* Centrar texto en celdas */
+    border: 1px solid #ddd; /* Borde de celdas */
+}
+
+/* Estilo de encabezados */
+th {
+    background-color: #4CAF50; /* Color de fondo para encabezados */
+    color: white; /* Color del texto en encabezados */
+}
+
+/* Estilo de filas alternas */
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color alternativo para filas */
+}
+.status {
+    font-weight: bold;
+}
+.status-success {
+    color: green;
+}
+.status-failed {
+    color: red;
+}
+.error-message {
+    color: red;
+    font-weight: bold;
+}
