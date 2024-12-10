@@ -17,17 +17,9 @@ spec:
       containers:
         - name: app
           image: app-image:latest
-          env:
-            - name: POSTGRES_HOST
-              value: postgresql
-            - name: POSTGRES_PORT
-              value: "5432"
-            - name: POSTGRES_USER
-              value: user
-            - name: POSTGRES_PASSWORD
-              value: postgres
-            - name: POSTGRES_DB
-              value: postgres
+          envFrom:
+          - configMapRef:
+              name: postgres-config
           imagePullPolicy: Never
           ports:
             - containerPort: 5000
