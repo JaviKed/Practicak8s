@@ -2,6 +2,8 @@ import os
 import sys
 import socket
 from flask import Flask, render_template, jsonify
+from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_client import Gauge
 from flask_sqlalchemy import SQLAlchemy
 from flask_caching import Cache
 from sqlalchemy.exc import OperationalError
@@ -22,6 +24,10 @@ app.config['CACHE_DEFAULT_TIMEOUT'] = 300
 
 cache = Cache(app)
 
+metrics = PrometheusMetrics(app)
+
+app_up = Gauge('flask_app_up', 'Application health status: 1 = up, 0 = down')
+
 db = SQLAlchemy(app)
 
 class Item(db.Model):
@@ -37,6 +43,16 @@ def check_db_connection():
         return True
     except OperationalError:
         return False
+
+@app.route('/health')
+def health():
+    try:
+        # Perform health checks here (e.g., DB, dependencies)
+        app_up.set(1)  # App is up
+        return "App is healthy!", 200
+    except Exception as e:
+        app_up.set(0)  # App is down
+        return f"Health check failed: {str(e)}", 500
     
 def check_redis_connection():
     """Check if the Redis is reachable."""

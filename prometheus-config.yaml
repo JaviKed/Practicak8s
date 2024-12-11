@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+data:
+  prometheus.yml: |
+    scrape_configs:
+      - job_name: 'nginx'
+        scrape_interval: 10s  
+        static_configs:
+          - targets: ['nginx:5000']
+      - job_name: 'redis'
+        scrape_interval: 10s
+        static_configs:
+          - targets: ['redis_exporter:9121']
+      - job_name: 'postgres'
+        scrape_interval: 10s  
+        static_configs:
+          - targets: ['postgres_exporter:9187']
