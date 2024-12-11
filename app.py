@@ -24,7 +24,8 @@ app.config['CACHE_DEFAULT_TIMEOUT'] = 300
 
 cache = Cache(app)
 
-metrics = PrometheusMetrics(app)
+metrics = PrometheusMetrics(app=app)
+
 
 app_up = Gauge('flask_app_up', 'Application health status: 1 = up, 0 = down')
 
@@ -105,5 +106,5 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=False)
 
