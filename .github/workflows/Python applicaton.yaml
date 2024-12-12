@@ -54,4 +54,4 @@ jobs:
         pytest --maxfail=3 --disable-warnings
     - name: Test coverage for /health
       run: |
-        python -m unittest discover -s tests -p 'apptest.py'
+        python -m unittest discover -s tests -p 'app_test.py'
