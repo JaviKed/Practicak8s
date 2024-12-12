@@ -48,7 +48,7 @@ def check_db_connection():
 @app.route('/health')
 def health():
     try:
-        # Perform health checks here (e.g., DB, dependencies)
+        # Perform health check
         app_up.set(1)  # App is up
         return "App is healthy!", 200
     except Exception as e:
