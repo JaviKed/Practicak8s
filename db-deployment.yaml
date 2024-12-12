@@ -19,7 +19,7 @@ spec:
             - containerPort: 5432
           envFrom:
             - configMapRef:
-                name: postgres-secret
+                name: postgres-config
           volumeMounts:
             - mountPath: /docker-entrypoint-initdb.d/
               name: db-init
