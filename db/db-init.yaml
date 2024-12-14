@@ -2,4 +2,10 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: db-init
-data: "CREATE TABLE IF NOT EXISTS items (\r\n    id SERIAL PRIMARY KEY,\r\n    name VARCHAR(100),\r\n    description TEXT\r\n);"
+data:
+  init.sql: |
+    CREATE TABLE IF NOT EXISTS items (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100),
+        description TEXT
+    );
