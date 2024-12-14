@@ -85,3 +85,16 @@ jobs:
     - name: Push Docker image
       run: |
         docker push xkedara/app-image:latest  # Push to your Docker Hub repo
+
+  deployment:
+
+    name: Deploy de la version de la app
+    needs: build_and_push_image
+    runs-on: ubuntu-latest
+    
+
+    steps:
+    - run: echo "Acceder a la carpeta de app-k8s y ejecutar uno de los 2 scripts de deployment gb-deployment.sh o canary-deployment.sh"
+    - run: echo "Esto procederá a levantar la nueva version de nuestra app ya que se ha subido la imagen al registry de dockerHub y ha pasado los tests"
+
+      
