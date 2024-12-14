@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: grafana-pv
+  namespace: default  # Cambia a tu namespace si es necesario
+spec:
+  capacity:
+    storage: 5Gi  # Tamaño del volumen, puedes ajustarlo según tus necesidades
+  accessModes:
+    - ReadWriteOnce  # El volumen puede ser montado en solo un nodo en modo lectura/escritura
+  persistentVolumeReclaimPolicy: Retain  # Política de reclamación, puede ser Retain, Recycle o Delete
+  storageClassName: standard  # Asegúrate de que esto coincida con la StorageClass de tu entorno (ej. "standard" o "gp2")
+  hostPath:
+    path: /mnt/data/grafana  # Ruta en el nodo donde se almacenarán los dato
