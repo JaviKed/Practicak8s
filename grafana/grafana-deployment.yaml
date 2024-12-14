@@ -40,4 +40,4 @@ spec:
           name: grafana-datasources  # Nombre del ConfigMap para datasources
       - name: dashboards-volume
         configMap:
-          name: grafana-dashboards
+          name: grafana-dashboard
