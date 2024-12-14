@@ -42,7 +42,11 @@ def check_db_connection():
         # Try to execute a simple query
         db.session.execute('SELECT 1')
         return True
-    except OperationalError:
+    except OperationalError as e:
+        logging.error(f"Database connection failed: {e}")  # Log the error for debugging
+        return False
+    except Exception as e:
+        logging.error(f"Unexpected error checking database connection: {e}")
         return False
 
 @app.route('/health')
@@ -94,16 +98,30 @@ def index():
         if items is None:  # Cache miss
             if db_connected:
                 items = Item.query.all()  # Fetch items if connected
-                cache.set('items', items, timeout=60)  # Cache the result for 5 minutes
+                cache.set('items', items, timeout=60)  # Cache the result for 1 minute
+            else:
+                items = []  
         item_count = len(items)
         return render_template('index.html', items=items, item_count=item_count, db_connected=db_connected, redis_connected=redis_connected)
     elif db_connected:
-        items = Item.query.all()  # Fetch items if connected
-        item_count = Item.query.count()
-        return render_template('index.html', items=items, item_count=item_count, db_connected=db_connected, redis_connected=redis_connected)
-
+        try:
+            items = Item.query.all()  # Fetch items if connected
+            item_count = Item.query.count()
+            return render_template('index.html', items=items, item_count=item_count, db_connected=db_connected, redis_connected=redis_connected)
+        except OperationalError as e:
+            logging.error(f"Database query failed: {e}")
+            items = [] 
     
-
+    else:
+        logging.warning("Redis y database no alcanzables.")
+        return render_template(
+            'index.html',
+            items=[],
+            item_count=0,
+            db_connected=False,
+            redis_connected=False,
+            error_message="Unable to fetch data at the moment."
+        )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=False)
