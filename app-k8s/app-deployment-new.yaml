@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-v2
+  labels:
+    app: app
+    version: v2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: app
+        version: v2
+    spec:
+      containers:
+        - name: app-v2
+          image: app-image:latest
+          envFrom:
+          - configMapRef:
+              name: postgres-config
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
