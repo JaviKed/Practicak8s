@@ -20,6 +20,8 @@ spec:
         - containerPort: 3000
           name: web
         volumeMounts:
+          - name: datasources-volume
+            mountPath: /etc/grafana/provisioning/datasources  # Ruta para las fuentes de datos
           - name: grafana-storage
             mountPath: /var/lib/grafana
         env:
@@ -29,4 +31,8 @@ spec:
           value: "admin"
       volumes:
       - name: grafana-storage
-        emptyDir: {}
+        persistentVolumeClaim:
+            claimName: grafana-pvc
+      - name: datasources-volume
+        configMap:
+          name: grafana-datasources  # Nombre del ConfigMap para datasources
