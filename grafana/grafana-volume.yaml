@@ -3,6 +3,8 @@ kind: PersistentVolume
 metadata:
   name: grafana-pv
   namespace: default  # Cambia a tu namespace si es necesario
+  labels:
+    type: local
 spec:
   capacity:
     storage: 5Gi  # Tamaño del volumen, puedes ajustarlo según tus necesidades
