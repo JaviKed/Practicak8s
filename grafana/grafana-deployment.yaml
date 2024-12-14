@@ -22,6 +22,8 @@ spec:
         volumeMounts:
           - name: datasources-volume
             mountPath: /etc/grafana/provisioning/datasources  # Ruta para las fuentes de datos
+          - name: dashboards-volume
+            mountPath: /etc/grafana/provisioning/dashboards
           - name: grafana-storage
             mountPath: /var/lib/grafana
         env:
@@ -36,3 +38,6 @@ spec:
       - name: datasources-volume
         configMap:
           name: grafana-datasources  # Nombre del ConfigMap para datasources
+      - name: dashboards-volume
+        configMap:
+          name: grafana-dashboards
